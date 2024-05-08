@@ -9,7 +9,7 @@ $(document).keypress(function()
 if (!started){
     $("#level-title").text("level "+level);
     nextSequence();
-    started=true;
+    started = true;
 }
 });
 
