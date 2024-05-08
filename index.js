@@ -1,94 +1,98 @@
-var buttonclr=["red", "green", "blue", "yellow"];
+var btncolor=["red", "blue", "green", "yellow"];
 var gamepattern=[];
 var userclickedpattern=[];
+var level=0;
 var started=false;
 
-var level=0;
-$(document).keypress(function()
-{
-if (!started){
-    $("#level-title").text("level "+level);
-    nextSequence();
-    started = true;
-}
-});
+$("#startbtn").click(function(){
+    if(!started)
+        $("#level-title").text("level "+level);
 
-function checkanswer(currentlevel){
-    if (gamepattern[currentlevel] === userclickedpattern[currentlevel])
-    {
-      console.log("success");
-      
-      
-    if(gamepattern.length ===userclickedpattern.length){
-        setTimeout(function(){
-            nextSequence();
-        }, 1000);
-
-    }
-    else{
-     console.log("wrong");
-     playSound("wrong");
-
-     $("body").addClass("game-over");
-     setTimeout(function(){
-        $("body").removeClass("game-over");
-     },200);
-
-     $("#level-title").text("Game over, press any key to restart");
-
-     startover();
-    }
-
-
-}
-
-$(".btn").click(function(){
-var userchosencolor =$(this).attr("id");
-
-userclickedpattern.push(userchosencolor);
-
-console.log(userclickedpattern);
-
-playSound(userchosencolor);
-Animatepress(userchosencolor);
-checkanswer(userclickedpattern.length-1);
-
-});
-
-
-function nextSequence()
-{
-    userclickedpattern=[];
-    level++;
-    $("#level-title").text("level "+level);
-
-    var ran = Math.floor(Math.random()*4);
-    var randomchose = buttonclr[ran];
-    gamepattern.push(randomchose);
-
-    $("#"+randomchose).fadeIn(100).fadeOut(100).fadeIn(100);
-    playSound(randomchose);
-    
-  
-
-}
-function startover(){
-     level=0
-    gamepattern=[];
-     started=false;
-}
-function playSound(name){
-    var audio=new Audio("sounds/"+name+".mp3");
-    audio.play();
-    
-}
-function Animatepress(currentclr){
-    $("#"+currentclr).addClass("pressed");
     setTimeout(function(){
-        $("#"+currentclr).removeClass("pressed");
+         nextSequence();
+    },1000);
+      
+       started = true;
+})
 
-    },100);
+
+
+
+
+function nextSequence(){
+    userclickedpattern= [];
+    level=level+1;
+    $("#level-title").text("level " +level);
+    
+    var ran = Math.floor(Math.random()*4);
+    var randomChosenColor = btncolor[ran];
+    console.log(randomChosenColor);
+   
+    gamepattern.push(randomChosenColor);    
+    
+ $("#"+ randomChosenColor).fadeIn(100).fadeOut(100).fadeIn(100);
+
+ var audio =new Audio("sounds/"+randomChosenColor+".mp3");
+ audio.play();
     
 
+    }
 
-}}
+    $(".btn").click(function(){
+        var userchoice = $(this).attr("id");
+        userclickedpattern.push(userchoice);
+        console.log(userclickedpattern);
+
+        var audio =new Audio("sounds/"+userchoice+".mp3");
+        audio.play();
+        
+        $("#"+ userchoice).fadeIn(100).fadeOut(100).fadeIn(100);
+
+        checkanswer(userclickedpattern.length - 1);
+        
+
+
+    });
+
+    function checkanswer(currentlevel){
+        if(gamepattern[currentlevel] === userclickedpattern[currentlevel])
+            {
+                console.log("success");
+
+                if(gamepattern.length === userclickedpattern.length){
+
+                   console.log("length success");
+                    setTimeout(function(){
+                        nextSequence();
+                    },1000 );
+                }
+            }
+            else{ 
+            
+                console.log("wrong");
+                var name = "wrong";
+                var audio = new Audio("sounds/"+name+".mp3");
+                audio.play();
+             
+                $("body").addClass("game-over");
+                
+                setTimeout(function(){
+                    $("body").removeClass("game-over");
+                
+
+                },200);
+
+                $("#level-title").text("game Over tap start");
+
+                 
+                      startover();
+                 
+              
+
+            }}
+
+            function startover(){
+                gamepattern=[];
+                started = false;
+                level= 0;
+            }
