@@ -69,26 +69,37 @@ body {
 }
 
 
-@media (max-width:600px) {
+@media (max-width:350px) {
   body{
     text-align: center;
   }
 
   .container{
     display:inline;
+
     
-    margin: auto;
+    
 
     
   }
   .btn{
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
+    margin: 10px;
     
     
     
     
 
   }
+  #startbtn{
+    margin: 20px;
+  }
+
+  #level-title{
+    margin-top: 30px;
+    padding-top: 20px;
+  }
+  
   
 } 
