@@ -80,13 +80,13 @@ body {
   }
 
   .btn{
-    width: 150px;
-    height:150px;
-    margin: 20px;
+    width: 100px;
+    height:100px;
+    margin: 15px;
   }
 
   #startbtn{
-    margin: 30px;
+    margin: 20px;
     width: 200px;
     height: 50px;
     font-size: 2em;
